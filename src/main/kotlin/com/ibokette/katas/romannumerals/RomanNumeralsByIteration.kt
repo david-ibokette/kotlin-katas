@@ -16,14 +16,14 @@ class RomanNumeralsByIteration {
     }
 
     private fun singleCharToInt(c: String): Int {
-        when (c) {
-            "I" -> return 1
-            "V" -> return 5
-            "X" -> return 10
-            "L" -> return 50
-            "C" -> return 100
-            "D" -> return 500
-            "M" -> return 1000
+        return when (c) {
+            "I" -> 1
+            "V" -> 5
+            "X" -> 10
+            "L" -> 50
+            "C" -> 100
+            "D" -> 500
+            "M" -> 1000
             else -> throw IllegalArgumentException("Invalid Roman numeral")
         }
     }
