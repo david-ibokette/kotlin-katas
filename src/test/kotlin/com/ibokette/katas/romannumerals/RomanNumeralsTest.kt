@@ -1,4 +1,4 @@
-package com.ibokette.katas
+package com.ibokette.katas.romannumerals
 
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 
 class RomanNumeralsTest {
 
-    private val rn = RomanNumerals()
+    private val rn = RomanNumeralsByIteration()
 
     @BeforeEach
     fun setUp() {}

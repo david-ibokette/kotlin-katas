@@ -1,6 +1,6 @@
-package com.ibokette.katas
+package com.ibokette.katas.romannumerals
 
-class RomanNumerals {
+class RomanNumeralsByIteration {
     fun convert(roman: String): Int {
         return wholeStringToAdditiveParts(roman)
             .map{stringPartToInt(it)}
