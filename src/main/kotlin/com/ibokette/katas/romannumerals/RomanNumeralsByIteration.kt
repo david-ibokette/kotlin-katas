@@ -1,13 +1,7 @@
 package com.ibokette.katas.romannumerals
 
-class RomanNumeralsByIteration {
-    fun convert(roman: String): Int {
-        return wholeStringToAdditiveParts(roman)
-            .map{stringPartToInt(it)}
-            .sum()
-    }
-
-    private fun wholeStringToAdditiveParts(roman: String): List<String> {
+class RomanNumeralsByIteration : AbstractRomanNumerals() {
+    override fun wholeStringToAdditiveParts(roman: String): List<String> {
         val romanAsStringList = roman.toList().map{it.toString()}
         val result = mutableListOf<String>()
         var lastElement = ""
@@ -39,26 +33,5 @@ class RomanNumeralsByIteration {
         }
 
         return result
-    }
-
-    private fun stringPartToInt(roman: String): Int {
-        require(roman.length in 1.. 2) { "Invalid Roman part {$roman}" }
-
-        if (roman.length == 1) return singleCharToInt(roman)
-
-        return singleCharToInt(roman[1].toString()) - singleCharToInt(roman[0].toString())
-    }
-
-    private fun singleCharToInt(c: String): Int {
-        return when (c) {
-            "I" -> 1
-            "V" -> 5
-            "X" -> 10
-            "L" -> 50
-            "C" -> 100
-            "D" -> 500
-            "M" -> 1000
-            else -> throw IllegalArgumentException("Invalid Roman numeral")
-        }
     }
 }
