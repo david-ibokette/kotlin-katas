@@ -20,56 +20,52 @@ class RomanNumeralsTest {
         "MCMXLIV" to 1944,
     )
 
-    @TestFactory
-    fun `dynamic convert by iteration`(): Collection<DynamicTest> {
-        val rn = RomanNumeralsByIteration()
-        return romanToIntMap.entries.map {
-            DynamicTest.dynamicTest("${it.key} test") { assertEquals(it.value, rn.convert(it.key)) }
-        }
-    }
+    private val romanToAdditivePartsMap = mapOf(
+        "I" to listOf("I"),
+        "II" to listOf("I", "I"),
+        "IV" to listOf("IV"),
+        "X" to listOf("X"),
+        "XLIV" to listOf("XL", "IV"),
+        "MCMXLIV" to listOf("M", "CM", "XL", "IV"),
+    )
 
-    @TestFactory
-    fun `dynamic convert by recursion`(): Collection<DynamicTest> {
-        val rn = RomanNumeralsByRecursion()
-        return romanToIntMap.entries.map {
-            DynamicTest.dynamicTest("${it.key} test") { assertEquals(it.value, rn.convert(it.key)) }
+    @Nested
+    @DisplayName("Tests for the RomanNumeralsByIteration")
+    inner class RomanNumeralsByIterationTests {
+        private val rn = RomanNumeralsByIteration()
+
+        @TestFactory
+        fun `dynamic convert by iteration`(): Collection<DynamicTest> {
+            return romanToIntMap.entries.map {
+                DynamicTest.dynamicTest("${it.key} convert test") { assertEquals(it.value, rn.convert(it.key)) }
+            }
+        }
+
+        @TestFactory
+        fun `dynamic wholeStringToAdditiveParts by iteration`(): Collection<DynamicTest> {
+            return romanToAdditivePartsMap.entries.map {
+                DynamicTest.dynamicTest("${it.key} wholetoadditive test") { assertEquals(it.value, rn.wholeStringToAdditiveParts(it.key)) }
+            }
         }
     }
 
     @Nested
-    @DisplayName("Tests for the RomanNumeralsByRecursion.wholeStringToAdditiveParts() method")
-    inner class WholeStringTests {
+    @DisplayName("Tests for the RomanNumeralsByRecursion")
+    inner class RomanNumeralsByRecursionTests {
         private val rn = RomanNumeralsByRecursion()
 
-        @Test
-        fun `wholeString I`() {
-            assertEquals(listOf("I"), rn.wholeStringToAdditiveParts("I"), )
+        @TestFactory
+        fun `dynamic convert by recursion`(): Collection<DynamicTest> {
+            return romanToIntMap.entries.map {
+                DynamicTest.dynamicTest("${it.key} convert test") { assertEquals(it.value, rn.convert(it.key)) }
+            }
         }
 
-        @Test
-        fun `wholeString II`() {
-            assertEquals(listOf("I", "I"), rn.wholeStringToAdditiveParts("II"), )
-        }
-
-        @Test
-        fun `wholeString XII`() {
-            assertEquals(listOf("X", "I", "I"), rn.wholeStringToAdditiveParts("XII"), )
-        }
-
-        @Test
-        fun `wholeString IV`() {
-            assertEquals(listOf("IV"), rn.wholeStringToAdditiveParts("IV"), )
-        }
-
-        @Test
-        fun `wholeString XIV`() {
-            assertEquals(listOf("X", "IV"), rn.wholeStringToAdditiveParts("XIV"))
-        }
-
-        @Test
-        fun `wholeString MCMXLIV`() {
-            assertEquals(listOf("M", "CM", "XL", "IV"), rn.wholeStringToAdditiveParts("MCMXLIV"))
+        @TestFactory
+        fun `dynamic wholeStringToAdditiveParts by recursion`(): Collection<DynamicTest> {
+            return romanToAdditivePartsMap.entries.map {
+                DynamicTest.dynamicTest("${it.key} wholetoadditive test") { assertEquals(it.value, rn.wholeStringToAdditiveParts(it.key)) }
+            }
         }
     }
-
 }
