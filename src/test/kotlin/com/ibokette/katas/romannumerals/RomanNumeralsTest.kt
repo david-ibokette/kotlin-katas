@@ -11,75 +11,28 @@ class RomanNumeralsTest {
     @AfterEach
     fun tearDown() {}
 
-    @Nested
-    @DisplayName("Tests for the RomanNumeralsByIteration.convert() method")
-    inner class IterationConvertTests {
-        private val rn = RomanNumeralsByIteration()
+    private val romanToIntMap = mapOf(
+        "I" to 1,
+        "II" to 2,
+        "IV" to 4,
+        "X" to 10,
+        "XLIV" to 44,
+        "MCMXLIV" to 1944,
+    )
 
-        @Test
-        fun `test I`() {
-            assertEquals(1, rn.convert("I"))
-        }
-
-        @Test
-        fun `test II`() {
-            assertEquals(2, rn.convert("II"))
-        }
-
-        @Test
-        fun `test IV`() {
-            assertEquals(4, rn.convert("IV"))
-        }
-
-        @Test
-        fun `test X`() {
-            assertEquals(10, rn.convert("X"))
-        }
-
-        @Test
-        fun `test 44`() {
-            assertEquals(44, rn.convert("XLIV"))
-        }
-
-        @Test
-        fun `test 1944`() {
-            assertEquals(1944, rn.convert("MCMXLIV"))
+    @TestFactory
+    fun `dynamic convert by iteration`(): Collection<DynamicTest> {
+        val rn = RomanNumeralsByIteration()
+        return romanToIntMap.entries.map {
+            DynamicTest.dynamicTest("${it.key} test") { assertEquals(it.value, rn.convert(it.key)) }
         }
     }
 
-    @Nested
-    @DisplayName("Tests for the RomanNumeralsByIteration.convert() method")
-    inner class RecursionConvertTests {
-        private val rn = RomanNumeralsByRecursion()
-
-        @Test
-        fun `test I`() {
-            assertEquals(1, rn.convert("I"))
-        }
-
-        @Test
-        fun `test II`() {
-            assertEquals(2, rn.convert("II"))
-        }
-
-        @Test
-        fun `test IV`() {
-            assertEquals(4, rn.convert("IV"))
-        }
-
-        @Test
-        fun `test X`() {
-            assertEquals(10, rn.convert("X"))
-        }
-
-        @Test
-        fun `test 44`() {
-            assertEquals(44, rn.convert("XLIV"))
-        }
-
-        @Test
-        fun `test 1944`() {
-            assertEquals(1944, rn.convert("MCMXLIV"))
+    @TestFactory
+    fun `dynamic convert by recursion`(): Collection<DynamicTest> {
+        val rn = RomanNumeralsByRecursion()
+        return romanToIntMap.entries.map {
+            DynamicTest.dynamicTest("${it.key} test") { assertEquals(it.value, rn.convert(it.key)) }
         }
     }
 
@@ -118,4 +71,5 @@ class RomanNumeralsTest {
             assertEquals(listOf("M", "CM", "XL", "IV"), rn.wholeStringToAdditiveParts("MCMXLIV"))
         }
     }
+
 }

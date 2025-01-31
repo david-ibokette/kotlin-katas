@@ -11,13 +11,9 @@ class RomanNumeralsByRecursion {
         // Def only part - return it.
         if (roman.length < 2) return listOf(roman)
 
-        var size = 1
-
         val leftInt = singleCharToInt(roman.substring(0, 1))
         val rightInt = singleCharToInt(roman.substring(1, 2))
-        if (leftInt < rightInt) {
-            size = 2
-        }
+        val size = if (leftInt < rightInt) 2 else 1
 
         // With new size the only part - return it.
         if (size == 2 && roman.length < 3) return listOf(roman.substring(0, 2))
